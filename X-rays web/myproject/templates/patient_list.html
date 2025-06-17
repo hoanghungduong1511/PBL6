@@ -1,0 +1,33 @@
+{% extends "doctor_base.html" %}
+<title>{% block title %}Patient List{% endblock %}</title>
+
+{% block content %}
+    <h2 class="bold-text">Patient<span style="color: #00c6a9; font-weight: bold;"> List</span></h2>
+    <table class="patient-table" border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Diagnose</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for patient in patients %}
+                <tr>
+                    <!-- Tạo liên kết tới trang chi tiết bệnh nhân -->
+                    <td>
+                        <a href="{{ url_for('patient_detail', patient_id=patient.id) }}" class="patient-link">
+                            {{ patient.name }}
+                        </a>
+                    </td>
+                    <td class="{% if patient.diagnose_name %}diagnosed{% else %}undiagnosed{% endif %}">
+                        {% if patient.diagnose_name %}
+                            Diagnosed
+                        {% else %}
+                            Undiagnosed
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

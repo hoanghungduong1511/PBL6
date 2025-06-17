@@ -1,0 +1,70 @@
+<!-- New Password Field -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style_login.css') }}" />
+  <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+  <!-- Font Awesome CDN link for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <style>
+    /* Custom styling for error messages */
+    .error-message {
+      color: red;
+      font-size: 0.9rem;
+      margin-top: 5px;
+    }
+    .error-space {
+      margin-bottom: 15px; /* Add spacing if error message exists */
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="title"><span>Login Form</span></div>
+    <form action="{{ url_for('login') }}" method="POST">
+      <!-- CSRF Token -->
+      <input type="hidden" name="csrf_token" value="{{ form.csrf_token._value() }}" />
+
+      <!-- Username Field -->
+      <div class="row">
+        <i class="fas fa-user"></i>
+        <input type="text" name="username" placeholder="Username"  required />
+      </div>
+
+      <!-- Password Field -->
+      <div class="row">
+        <i class="fas fa-lock"></i>
+        <input type="password" name="password" placeholder="Password" required />
+      </div>
+
+      <!-- Error Message -->
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            {% if category == 'danger' %}
+              <div class="error-message">{{ message }}</div>
+              <div class="error-space"></div>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <!-- Forgot Password -->
+      <div class="pass"><a href="#">Forgot password?</a></div>
+
+      <!-- Login Button -->
+      <div class="row button">
+        <input type="submit" value="Login" />
+      </div>
+
+      <!-- Signup Link -->
+      <div class="signup-link">
+        Not a member? <a href="{{ url_for('register') }}">Signup now</a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

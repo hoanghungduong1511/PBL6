@@ -1,0 +1,116 @@
+
+    .main-container {
+        max-width: 80%;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 400px;
+    }
+
+    .flex-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px; /* Khoảng cách giữa các phần tử */
+    }
+
+    .detail-container,
+    .form-container {
+        flex: 1; /* Đảm bảo các phần tử chiếm cùng kích thước */
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .patient-detail {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .upload-section {
+        text-align: center;
+        gap: 10px;
+    }
+
+    #image-preview-container {
+        margin-top: 0;
+        text-align: center;
+    }
+
+    .custom-upload {
+        display: inline-block;
+        background-color: #00c6a9;
+        color: white;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .custom-upload:hover {
+        background-color: #008f7a;
+    }
+
+    .btn-primary {
+        margin: 10px auto;
+        background-color: #00c6a9;
+        border: none;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #008f7a;
+    }
+
+    .patient-detail td, .patient-detail th {
+        padding: 10px;
+        vertical-align: middle; /* Đảm bảo nội dung căn giữa theo chiều dọc */
+        height: 50px; /* Đặt chiều cao cố định cho hàng */
+    }
+    
+    .patient-detail th{
+        text-align: center;
+    }
+
+    .patient-detail td:last-child {
+        word-wrap: break-word; /* Bẻ dòng nếu nội dung dài */
+        white-space: normal; /* Đảm bảo nội dung xuống dòng nếu cần */
+    }
+
+    .patient-detail td button {
+        display: inline-block; /* Giữ nút trong cùng dòng */
+        margin-left: 5px; /* Thêm khoảng cách giữa văn bản và nút */
+    }
+    .patient-detail tr {
+        height: 50px; /* Chiều cao đồng nhất cho tất cả các hàng */
+    }
+    .patient-detail {
+        margin-top: 15px;
+    }
+
+    #diagnosis-result img {
+        max-width: 100%;
+        height: auto;
+        margin-top: 0;
+        text-align: center;
+        border: 2px solid #00c6a9;
+        border-radius: 5px;
+    }
+    #diagnosis-result h3, #diagnosis-result h4 {
+        color: #333;
+    }
+    
+    
+    

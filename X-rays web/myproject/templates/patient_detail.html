@@ -1,0 +1,109 @@
+{% extends "doctor_base.html" %}
+<title>{% block title %}Patient Detail{% endblock %}</title>
+<head>
+    {%block extra_css%}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/patient_detail.css') }}" />
+    {%endblock%}
+</head>
+
+{% block content %}
+<div class="main-container">
+    <h2 class="bold-text text-center">Patient<span style="color: #00c6a9; font-weight: bold;"> Detail</span></h2>
+    <div class="flex-container" id="flex-container">
+        <!-- Patient Detail Section -->
+        <div class="detail-container" id="detail-container">
+            <table class="patient-detail">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Patient Information</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Name</td>
+                        <td>{{ patient.name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>{{ patient.email }}</td>
+                    </tr>
+                    <tr>
+                        <td>Phone number</td>
+                        <td>{{ patient.phone_number }}</td>
+                    </tr>
+                    <tr>
+                        <td>Date of Birth</td>
+                        <td>{{ patient.birth_day }}</td>
+                    </tr>
+                    <tr>
+                        <td>Gender</td>
+                        <td>{{ patient.gender }}</td>
+                    </tr>
+                    <tr>
+                        <td>Diagnose</td>
+                        <td>
+                            {% if patient.diagnose_name %}
+                               <span>{{ patient.diagnose_name }}</span>
+                               <button id="check-now" style="color: #00c6a9; font-weight: bold; background: none; border: none; cursor: pointer;">Check again</button>
+                               <br>
+                               {% if patient.diagnose_image %}
+                                  <img src="{{ url_for('show_image', filename=patient.diagnose_image) }}" alt="Diagnosed Image" style="max-width: 300px; margin-top: 10px;">
+                             {% endif %}
+                            {% else %}
+                                <span>This patient has not been diagnosed.</span>
+                                <button id="check-now" style="color: #00c6a9; font-weight: bold; background: none; border: none; cursor: pointer;">Check now</button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Form Section -->
+        <div class="form-container" id="form-container" style="display: none; opacity: 0;">
+            <form action="{{ url_for('upload_image', patient_id=patient.id) }}" method="POST" enctype="multipart/form-data">
+                <div class="upload-section">
+                    <label for="inputImage" class="custom-upload">
+                        Upload X-ray Image
+                    </label>
+                    <input type="file" name="file" id="inputImage" class="form-control-page" style="display: none;">
+                    
+                    <p id="file-name" style="margin-top: 10px; font-size: 14px; color: #555; display: none;"></p>
+                    
+                    <div id="image-preview-container" style="margin-top: 10px; display: none;">
+                        <img id="image-preview" style="max-width: 200px; max-height: 200px;" alt="Image Preview">
+                    </div>
+                    
+                    <button type="submit" id="predict-button" class="btn btn-primary mt-2" style="display: none;">Predict</button>
+            </form>
+                    <div id="diagnosis-result" style="margin-top: 0;">
+                        {% if uploaded_image and output_image and diagnosis %}
+                            <h3>Diagnosis Result: <strong>{{ diagnosis | replace("[", "") | replace("]", "") | replace("'", "") }}</strong></h3>
+                            <h4>Processed Image with Bounding Box:</h4>
+                            <img src="{{ url_for('show_image', filename=output_image.split('/')[-1]) }}" alt="Processed Image" width="640" height="640">
+                             <!-- Thêm nút Save Diagnosis -->
+                             <form method="POST" action="{{ url_for('save_diagnosis', patient_id=patient.id) }}">
+                                <input type="hidden" name="diagnosis_name" value="{{ diagnosis }}">
+                                <input type="hidden" name="diagnosis_image" value="{{ output_image }}">
+                                <button type="submit" class="btn btn-success mt-3">Save Diagnosis</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+
+                        <!-- Flash messages -->
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                                {% for category, message in messages %}
+                                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                
+        </div>
+</div>
+{%block extra_js%}
+<script src="{{ url_for('static', filename='js/patient_detail.js') }}"></script>
+{%endblock%}
+{% endblock %}

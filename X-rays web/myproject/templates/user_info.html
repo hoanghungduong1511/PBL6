@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+<title>{% block title %}Account Info{% endblock %}</title>
+
+{% block content %}
+<table>
+    <h2 class="bold-text">Medical<span style=" color: #00c6a9 ; font-weight: bold;"> Record</span></h2>
+    <thead>
+        <tr>
+            <th></th>
+            <th>User Information</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Name</td>
+            <td>{{ user_data.name }}</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>{{ user_data.email }}</td>
+        </tr>
+        <tr>
+            <td>Phone number</td>
+            <td>{{ user_data.phone_number }}</td>
+        </tr>
+        <tr>
+            <td>Date of Birth</td>
+            <td>{{ user_data.birth_day }}</td>
+        </tr>
+        <tr>
+            <td>Gender</td>
+            <td>{{ user_data.gender }}</td>
+        </tr>
+        <tr>
+            <td>Diagnose</td>
+            <td>
+                {% if user_data.diagnose_name %}
+                    <span>{{ user_data.diagnose_name }}</span>
+                    <br>
+                    {% if user_data.diagnose_image %}
+                        <img src="{{ url_for('show_image', filename=user_data.diagnose_image) }}" alt="Diagnosed Image" style="max-width: 300px; margin-top: 10px;">
+                    {% else %}
+                        <span>No diagnosis image available.</span>
+                    {% endif %}
+                {% else %}
+                    <span>You have not been diagnosed.</span>
+                {% endif %}
+            </td>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}
